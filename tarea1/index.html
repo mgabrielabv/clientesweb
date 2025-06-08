@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Matrices</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de <span class="pink-accent">Matrices</span></h1>
+        
+        <div class="controls">
+            <div class="matrix-size">
+                <label for="matrixSize">Tamaño de matriz (n×n):</label>
+                <select id="matrixSize">
+                    <option value="2">2×2</option>
+                    <option value="3">3×3</option>
+                    <option value="4">4×4</option>
+                    <option value="5">5×5</option>
+                    <option value="6">6×6</option>  
+                    <option value="7">7×7</option>  
+                    <option value="8">8×8</option>
+                    <option value="9">9×9</option>
+                    <option value="10">10×10</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="matrices-container">
+            <div class="matrix" id="matrixA">
+                <h2>Matriz A</h2>
+                <div class="matrix-grid" id="gridA"></div>
+            </div>
+            
+            <div class="matrix" id="matrixB">
+                <h2>Matriz B</h2>
+                <div class="matrix-grid" id="gridB"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

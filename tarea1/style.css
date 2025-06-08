@@ -1,0 +1,66 @@
+:root {
+    --primary-pink: #ff66b2;
+    --light-pink: #ff99cc;
+    --dark-pink: #e6007e;
+    --background-pink: #fff0f7;
+    --input-pink: #ffe6f2;
+    --border-pink: #ffb6d5;
+    --text-dark: #4d0033;
+    --text-light: #ffffff;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-pink);
+    color: var(--text-dark);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+}
+
+.pink-accent {
+    color: var(--primary-pink);
+}
+
+.matrices-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.matrix {
+    flex: 1;
+    background-color: var(--input-pink);
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.matrix-grid input {
+    width: 60px;
+    height: 50px;
+    text-align: center;
+    border: 1px solid var(--border-pink);
+    border-radius: 8px;
+}
