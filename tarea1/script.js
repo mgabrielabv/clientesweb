@@ -30,13 +30,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('inverseA')) document.getElementById('inverseA').addEventListener('click', () => performOperation('inverseA'));
     if (document.getElementById('inverseB')) document.getElementById('inverseB').addEventListener('click', () => performOperation('inverseB'));
     if (document.getElementById('identity')) document.getElementById('identity').addEventListener('click', () => performOperation('identity'));
+    document.getElementById('identityA').addEventListener('click', () => performOperation('identityA'));
+    document.getElementById('identityB').addEventListener('click', () => performOperation('identityB'));
     document.getElementById('randomA').addEventListener('click', () => fillRandom('A'));
     document.getElementById('randomB').addEventListener('click', () => fillRandom('B'));
     document.getElementById('clearA').addEventListener('click', () => clearMatrix('A'));
     document.getElementById('clearB').addEventListener('click', () => clearMatrix('B'));
     if (document.getElementById('exampleA')) document.getElementById('exampleA').addEventListener('click', () => fillExample('A'));
     if (document.getElementById('exampleB')) document.getElementById('exampleB').addEventListener('click', () => fillExample('B'));
-    
+    document.getElementById('clearResult').addEventListener('click', clearResult);
 
     function createMatrixGrids(size) {
         createMatrixGrid(gridA, size, 'A');
@@ -91,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (errorText) errorText.textContent = '';
 
         if (typeof matrix === 'number') {
-            // Para determinantes
+
             if (Number.isInteger(matrix)) {
                 resultText.innerHTML = `${text} ${matrix}`;
             } else {
@@ -363,6 +365,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 case 'identity':
                     result = identityMatrix(currentSize);
                     text = `Matriz identidad ${currentSize}×${currentSize} =`;
+                    break;
+                case 'identityA':
+                    result = identityMatrix(currentSize);
+                    text = `Identidad A (${currentSize}×${currentSize}) =`;
+                    break;
+                case 'identityB':
+                    result = identityMatrix(currentSize);
+                    text = `Identidad B (${currentSize}×${currentSize}) =`;
                     break;
                 default:
                     throw new Error('Operación no reconocida');
