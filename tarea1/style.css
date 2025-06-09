@@ -64,3 +64,30 @@ h1 {
     border: 1px solid var(--border-pink);
     border-radius: 8px;
 }
+.operations {
+    display: flex;
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+    justify-content: center;
+}
+
+button {
+    background-color: var(--primary-pink);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+button:hover {
+    background-color: var(--dark-pink);
+}
+
+.result-container {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: var(--input-pink);
+    border-radius: 12px;
+}

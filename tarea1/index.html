@@ -40,7 +40,27 @@
             </div>
         </div>
     </div>
+    <div class="matrix-actions">
+    <button id="randomA">Aleatorio A</button>
+    <button id="randomB">Aleatorio B</button>
+    <button id="clearA">Limpiar A</button>
+    <button id="clearB">Limpiar B</button>
+</div>
+
+<div class="operations">
+    <button id="sum">A + B</button>
+    <button id="subtractAB">A - B</button>
+    <button id="subtractBA">B - A</button>
+</div>
+
+<div class="result-container">
+    <h2>Resultado</h2>
+    <div id="resultMatrix" class="matrix-grid"></div>
+</div>
 
     <script src="script.js"></script>
 </body>
 </html>
+<script>
+document.getElementById('subtractBA').addEventListener('click', () => performOperation('subtractBA'));
+</script>
