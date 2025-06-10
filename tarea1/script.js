@@ -1,19 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const matrixSizeSelect = document.getElementById('matrixSize');
+    const matrixRowsSelect = document.getElementById('matrixRows');
+    const matrixColsSelect = document.getElementById('matrixCols');
     const gridA = document.getElementById('gridA');
     const gridB = document.getElementById('gridB');
     const resultMatrix = document.getElementById('resultMatrix');
     const resultText = document.getElementById('resultText') || {textContent: ''};
     const errorText = document.getElementById('errorText') || {textContent: ''};
     const scalarValueInput = document.getElementById('scalarValue') || {value: 1};
-    let currentSize = 2;
 
-    
-    createMatrixGrids(2);
-    
-    matrixSizeSelect.addEventListener('change', function() {
-        currentSize = parseInt(this.value);
-        createMatrixGrids(currentSize);
+    let currentRows = 2;
+    let currentCols = 2;
+
+    createMatrixGrids(currentRows, currentCols);
+
+    matrixRowsSelect.addEventListener('change', function() {
+        currentRows = parseInt(this.value);
+        createMatrixGrids(currentRows, currentCols);
+        clearResult();
+    });
+    matrixColsSelect.addEventListener('change', function() {
+        currentCols = parseInt(this.value);
+        createMatrixGrids(currentRows, currentCols);
         clearResult();
     });
     
@@ -40,17 +47,16 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('exampleB')) document.getElementById('exampleB').addEventListener('click', () => fillExample('B'));
     document.getElementById('clearResult').addEventListener('click', clearResult);
 
-    function createMatrixGrids(size) {
-        createMatrixGrid(gridA, size, 'A');
-        createMatrixGrid(gridB, size, 'B');
+    function createMatrixGrids(rows, cols) {
+        createMatrixGrid(gridA, rows, cols, 'A');
+        createMatrixGrid(gridB, rows, cols, 'B');
     }
-    
-    function createMatrixGrid(gridElement, size, prefix) {
+
+    function createMatrixGrid(gridElement, rows, cols, prefix) {
         gridElement.innerHTML = '';
-        gridElement.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-        
-        for (let i = 0; i < size; i++) {
-            for (let j = 0; j < size; j++) {
+        gridElement.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
                 const input = document.createElement('input');
                 input.type = 'number';
                 input.id = `${prefix}_${i}_${j}`;
@@ -60,40 +66,36 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    
+
     function getMatrix(prefix) {
-        const size = currentSize;
         const matrix = [];
-        
-        for (let i = 0; i < size; i++) {
+        for (let i = 0; i < currentRows; i++) {
             const row = [];
-            for (let j = 0; j < size; j++) {
+            for (let j = 0; j < currentCols; j++) {
                 const value = parseFloat(document.getElementById(`${prefix}_${i}_${j}`).value) || 0;
                 row.push(value);
             }
             matrix.push(row);
         }
-        
         return matrix;
     }
-    
+
     function setMatrix(prefix, matrix) {
-        const size = matrix.length;
-        
-        for (let i = 0; i < size; i++) {
-            for (let j = 0; j < size; j++) {
+        const rows = matrix.length;
+        const cols = matrix[0].length;
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
                 document.getElementById(`${prefix}_${i}_${j}`).value = matrix[i][j];
             }
         }
     }
-    
+
     function displayResult(matrix, text = '') {
         resultMatrix.innerHTML = '';
         if (resultText) resultText.innerHTML = text || '';
         if (errorText) errorText.textContent = '';
 
         if (typeof matrix === 'number') {
-
             if (Number.isInteger(matrix)) {
                 resultText.innerHTML = `${text} ${matrix}`;
             } else {
@@ -102,11 +104,12 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        const size = matrix.length;
-        resultMatrix.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+        const rows = matrix.length;
+        const cols = matrix[0].length;
+        resultMatrix.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
-        for (let i = 0; i < size; i++) {
-            for (let j = 0; j < size; j++) {
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
                 const cell = document.createElement('div');
                 cell.className = 'result-cell';
                 const value = matrix[i][j];
@@ -115,19 +118,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    
+
     function displayError(message) {
         if (errorText) errorText.textContent = message;
         if (resultText) resultText.textContent = '';
         resultMatrix.innerHTML = '';
     }
-    
+
     function clearResult() {
         if (resultText) resultText.textContent = '';
         if (errorText) errorText.textContent = '';
         resultMatrix.innerHTML = '';
     }
-    
+
     function clearMatrix(prefix) {
         const size = currentSize;
         for (let i = 0; i < size; i++) {
@@ -136,10 +139,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    
+
     function fillRandom(prefix) {
-        for (let i = 0; i < currentSize; i++) {
-            for (let j = 0; j < currentSize; j++) {
+        for (let i = 0; i < currentRows; i++) {
+            for (let j = 0; j < currentCols; j++) {
                 const input = document.getElementById(`${prefix}_${i}_${j}`);
                 if (input) {
                     input.value = Math.floor(Math.random() * 10);
@@ -147,25 +150,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    
+
     function fillExample(prefix) {
-        const size = currentSize;
+        const rows = currentRows;
+        const cols = currentCols;
         let exampleMatrix;
         
-        if (size === 2) {
+        if (rows === 2 && cols === 2) {
             exampleMatrix = prefix === 'A' ?
                 [[2, 1], [1, 3]] : 
                 [[1, 0], [0, 1]];
-        } else if (size === 3) {
+        } else if (rows === 3 && cols === 3) {
             exampleMatrix = prefix === 'A' ? 
                 [[1, 2, 3], [0, 1, 4], [5, 6, 0]] : 
                 [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
         } else {
-           
             exampleMatrix = [];
-            for (let i = 0; i < size; i++) {
+            for (let i = 0; i < rows; i++) {
                 const row = [];
-                for (let j = 0; j < size; j++) {
+                for (let j = 0; j < cols; j++) {
                     row.push(i === j ? 1 : 0);
                 }
                 exampleMatrix.push(row);
@@ -177,12 +180,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
     function matrixSum(a, b) {
-        const size = a.length;
+        const rows = a.length;
+        const cols = a[0].length;
         const result = [];
         
-        for (let i = 0; i < size; i++) {
+        for (let i = 0; i < rows; i++) {
             const row = [];
-            for (let j = 0; j < size; j++) {
+            for (let j = 0; j < cols; j++) {
                 row.push(a[i][j] + b[i][j]);
             }
             result.push(row);
@@ -192,12 +196,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function matrixSubtract(a, b) {
-        const size = a.length;
+        const rows = a.length;
+        const cols = a[0].length;
         const result = [];
         
-        for (let i = 0; i < size; i++) {
+        for (let i = 0; i < rows; i++) {
             const row = [];
-            for (let j = 0; j < size; j++) {
+            for (let j = 0; j < cols; j++) {
                 row.push(a[i][j] - b[i][j]);
             }
             result.push(row);
@@ -207,14 +212,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function matrixMultiply(a, b) {
-        const size = a.length;
+        const rows = a.length;
+        const cols = b[0].length;
         const result = [];
         
-        for (let i = 0; i < size; i++) {
+        for (let i = 0; i < rows; i++) {
             const row = [];
-            for (let j = 0; j < size; j++) {
+            for (let j = 0; j < cols; j++) {
                 let sum = 0;
-                for (let k = 0; k < size; k++) {
+                for (let k = 0; k < a[0].length; k++) {
                     sum += a[i][k] * b[k][j];
                 }
                 row.push(sum);

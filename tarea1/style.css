@@ -1,11 +1,12 @@
 :root {
     --primary-pink: #ff66b2;
     --light-pink: #ff99cc;
-    --dark-pink: #e6007e;
-    --background-pink: #fff0f7;
-    --input-pink: #ffe6f2;
-    --border-pink: #ffb6d5;
-    --text-dark: #4d0033;
+    --dark-pink: #ff3399;
+    --error-pink: #ff3366;
+    --background-pink: #fff0f5;
+    --input-pink: #ffccdd;
+    --border-pink: #ffb6c1;
+    --text-dark: #660033;
     --text-light: #ffffff;
 }
 
@@ -13,81 +14,339 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: var(--background-pink);
     color: var(--text-dark);
-    min-height: 100vh;
     padding: 20px;
+    line-height: 1.6;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     background-color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(255, 102, 178, 0.2);
 }
 
 h1 {
     text-align: center;
     color: var(--text-dark);
-    margin-bottom: 1.5rem;
+    margin-bottom: 30px;
+    font-size: 2.2em;
 }
 
 .pink-accent {
     color: var(--primary-pink);
 }
 
-.matrices-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.matrix {
-    flex: 1;
-    background-color: var(--input-pink);
-    padding: 1.5rem;
-    border-radius: 12px;
-}
-
-.matrix-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.8rem;
-    margin-top: 1rem;
-}
-
-.matrix-grid input {
-    width: 60px;
-    height: 50px;
+h2 {
+    color: var(--primary-pink);
+    margin-bottom: 20px;
+    font-size: 1.5em;
     text-align: center;
-    border: 1px solid var(--border-pink);
-    border-radius: 8px;
 }
-.operations {
+
+.controls {
     display: flex;
-    gap: 0.8rem;
-    margin: 1.5rem 0;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+    align-items: center;
+    padding: 10px 5px;
 }
+
+.matrix-size {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.matrix-size label {
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.matrix-size select {
+    padding: 8px 15px;
+    border: 2px solid var(--border-pink);
+    border-radius: 8px;
+    background-color: white;
+    color: var(--text-dark);
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.matrix-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 
 button {
     background-color: var(--primary-pink);
-    color: white;
+    color: var(--text-light);
     border: none;
-    padding: 0.6rem 1.2rem;
+    padding: 10px 15px;
     border-radius: 8px;
+    font-size: 1em;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    min-width: 100px;
 }
 
 button:hover {
     background-color: var(--dark-pink);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 102, 178, 0.3);
 }
 
-.result-container {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background-color: var(--input-pink);
+.matrices-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    align-items: flex-start;
+}
+
+.matrix {
+    flex: 1;
+    min-width: 300px;
+    background-color: var(--background-pink);
+    padding: 15px;
     border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(255, 102, 178, 0.1);
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.matrix-grid {
+    display: grid;
+    gap: 10px;
+    margin: 0 auto;
+    width: fit-content;
+    min-width: min-content;
+    padding: 5px;
+    overflow: auto;
+}
+
+.matrix-grid input {
+    width: 80px;
+    height: 60px;
+    text-align: center;
+    border: 3px solid var(--border-pink);
+    border-radius: 10px;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: var(--text-dark);
+    background-color: white;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.matrix-grid input:focus {
+    outline: none;
+    border-color: var(--primary-pink);
+    box-shadow: 0 0 0 4px rgba(255, 102, 178, 0.3);
+    transform: scale(1.05);
+}
+
+
+.operations {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 180px;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.scalar-input {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: var(--input-pink);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+}
+
+.scalar-input label {
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.scalar-input-field {
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    border: 3px solid var(--border-pink);
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--text-dark);
+    background-color: white;
+}
+
+
+.result-container {
+    background-color: var(--background-pink);
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 30px;
+    border: 3px solid var(--border-pink);
+}
+
+#resultMatrix {
+    display: grid;
+    gap: 12px;
+    margin: 20px auto;
+    justify-content: center;
+}
+
+.result-cell {
+    width: 80px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 3px solid var(--border-pink);
+    border-radius: 10px;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: var(--text-dark);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+#resultText {
+    font-size: 1.3em;
+    font-weight: 500;
+    text-align: center;
+    margin: 15px 0;
+    color: var(--primary-pink);
+}
+
+.error {
+    color: var(--error-pink);
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.1em;
+    margin-top: 15px;
+}
+
+/* Ajustes para matrices grandes (5x5 hasta 10x10) */
+.matrix-grid[style*="5fr"] input,
+.matrix[style*="5fr"] .result-cell {
+    width: 60px;
+    height: 50px;
+    font-size: 1.1em;
+}
+
+.matrix-grid[style*="6fr"] input,
+.matrix[style*="6fr"] .result-cell {
+    width: 55px;
+    height: 45px;
+    font-size: 1em;
+}
+
+.matrix-grid[style*="7fr"] input,
+.matrix[style*="7fr"] .result-cell {
+    width: 50px;
+    height: 40px;
+    font-size: 0.9em;
+}
+
+.matrix-grid[style*="8fr"] input,
+.matrix[style*="8fr"] .result-cell {
+    width: 45px;
+    height: 38px;
+    font-size: 0.85em;
+}
+
+.matrix-grid[style*="9fr"] input,
+.matrix[style*="9fr"] .result-cell {
+    width: 42px;
+    height: 36px;
+    font-size: 0.8em;
+}
+
+.matrix-grid[style*="10fr"] input,
+.matrix[style*="10fr"] .result-cell {
+    width: 40px;
+    height: 35px;
+    font-size: 0.75em;
+}
+
+
+.matrix-grid::-webkit-scrollbar {
+    height: 6px;
+    background-color: var(--background-pink);
+}
+
+.matrix-grid::-webkit-scrollbar-thumb {
+    background-color: var(--primary-pink);
+    border-radius: 3px;
+}
+
+.teclado-flotante {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background: #2b2235;
+    padding: 15px;
+    border-radius: 16px;
+    box-shadow: 0 0 10px #000;
+    z-index: 999;
+    width: 220px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.teclado-flotante.visible {
+    display: flex;
+}
+
+.teclas {
+    display: grid;
+    grid-template-columns: repeat(4, 50px);
+    gap: 6px;
+}
+
+.teclas button {
+    padding: 10px;
+    background-color: #742c64;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.teclas button:hover {
+    background-color: #a03f89;
+}
+
+#pantalla-teclado {
+    background-color: #fff;
+    color: black;
+    width: 90%;
+    text-align: right;
+    font-weight: bold;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.oculto {
+    display: none;
 }
