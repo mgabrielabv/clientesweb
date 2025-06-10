@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (Number.isInteger(matrix)) {
                 resultText.innerHTML = `${text} ${matrix}`;
             } else {
-                resultText.innerHTML = `${text} ${matrix}`;
+                resultText.innerHTML = `${text} ${matrix.toFixed(3)}`;
             }
             return;
         }
@@ -113,7 +113,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const cell = document.createElement('div');
                 cell.className = 'result-cell';
                 const value = matrix[i][j];
-                cell.textContent = Number.isInteger(value) ? value : value;
+                // Muestra enteros sin decimales, decimales con hasta 3 cifras
+                cell.textContent = Number.isInteger(value) ? value : value.toFixed(3);
                 resultMatrix.appendChild(cell);
             }
         }
@@ -303,11 +304,11 @@ document.addEventListener('DOMContentLoaded', function() {
         return scalarMultiply(transposedAdjugate, 1 / det);
     }
     
-    function identityMatrix(size) {
+    function identityMatrix(rows, cols) {
         const matrix = [];
-        for (let i = 0; i < size; i++) {
+        for (let i = 0; i < rows; i++) {
             const row = [];
-            for (let j = 0; j < size; j++) {
+            for (let j = 0; j < cols; j++) {
                 row.push(i === j ? 1 : 0);
             }
             matrix.push(row);
@@ -369,16 +370,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     text = 'B<sup>-1</sup> =';
                     break;
                 case 'identity':
-                    result = identityMatrix(currentSize);
-                    text = `Matriz identidad ${currentSize}×${currentSize} =`;
+                    result = identityMatrix(currentRows, currentCols);
+                    text = `Matriz identidad ${currentRows}×${currentCols} =`;
                     break;
                 case 'identityA':
-                    result = identityMatrix(currentSize);
-                    text = `Identidad A (${currentSize}×${currentSize}) =`;
+                    result = identityMatrix(currentRows, currentCols);
+                    text = `Identidad A (${currentRows}×${currentCols}) =`;
                     break;
                 case 'identityB':
-                    result = identityMatrix(currentSize);
-                    text = `Identidad B (${currentSize}×${currentSize}) =`;
+                    result = identityMatrix(currentRows, currentCols);
+                    text = `Identidad B (${currentRows}×${currentCols}) =`;
                     break;
                 default:
                     throw new Error('Operación no reconocida');

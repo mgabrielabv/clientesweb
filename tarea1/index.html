@@ -39,51 +39,55 @@
                 </select>
             </div>
         </div>
-        
+
         <div class="matrices-container">
             <div class="matrix" id="matrixA">
                 <h2>Matriz A</h2>
                 <div class="matrix-grid" id="gridA"></div>
             </div>
-            
             <div class="matrix" id="matrixB">
                 <h2>Matriz B</h2>
                 <div class="matrix-grid" id="gridB"></div>
             </div>
         </div>
+
+        <div class="matrix-actions">
+            <button id="randomA">Aleatorio A</button>
+            <button id="randomB">Aleatorio B</button>
+            <button id="clearA">Limpiar A</button>
+            <button id="clearB">Limpiar B</button>
+        </div>
+
+        <div class="operations">
+            <button id="sum">A + B</button>
+            <button id="subtractAB">A - B</button>
+            <button id="subtractBA">B - A</button>
+            <button id="multiply">A × B</button>
+            <button id="scalarA">k × A</button>
+            <button id="scalarB">k × B</button>
+            <button id="transposeA">A<sup>T</sup></button>
+            <button id="transposeB">B<sup>T</sup></button>
+            <button id="determinantA">Det(A)</button>
+            <button id="determinantB">Det(B)</button>
+            <button id="inverseA">A<sup>-1</sup></button>
+            <button id="inverseB">B<sup>-1</sup></button>
+            <button id="identityA">Identidad A</button>
+            <button id="identityB">Identidad B</button>
+            <button id="clearResult">Limpiar Resultado</button>
+        </div>
+
+        <div class="scalar-input">
+            <label for="scalarValue">Valor de k:</label>
+            <input type="number" id="scalarValue" class="scalar-input-field" value="1" step="any">
+        </div>
+
+        <div class="result-container">
+            <h2>Resultado</h2>
+            <div id="resultText" style="margin-bottom:10px;color:#222;font-weight:bold;"></div>
+            <div id="errorText" style="margin-bottom:10px;color:red;"></div>
+            <div id="resultMatrix" class="matrix-grid"></div>
+        </div>
     </div>
-    <div class="matrix-actions">
-    <button id="randomA">Aleatorio A</button>
-    <button id="randomB">Aleatorio B</button>
-    <button id="clearA">Limpiar A</button>
-    <button id="clearB">Limpiar B</button>
-</div>
-
-<div class="operations">
-    <button id="sum">A + B</button>
-    <button id="subtractAB">A - B</button>
-    <button id="subtractBA">B - A</button>
-    <button id="multiply">A × B</button>
-    <button id="scalarA">k × A</button>
-    <button id="scalarB">k × B</button>
-    <button id="transposeA">A<sup>T</sup></button>
-    <button id="transposeB">B<sup>T</sup></button>
-    <button id="determinantA">Det(A)</button>
-    <button id="determinantB">Det(B)</button>   
-    <button id="inverseA">A<sup>-1</sup></button>
-    <button id="inverseB">B<sup>-1</sup></button>
-    <button id="identityA">Identidad A</button>
-    <button id="identityB">Identidad B</button>
-    <button id="clearResult">Limpiar Resultado</button>
-</div>
-
-<div class="result-container">
-    <h2>Resultado</h2>
-    <div id="resultText" style="margin-bottom:10px;color:#222;font-weight:bold;"></div>
-    <div id="errorText" style="margin-bottom:10px;color:red;"></div>
-    <div id="resultMatrix" class="matrix-grid"></div>
-</div>
-
     <script src="script.js"></script>
 </body>
 </html>

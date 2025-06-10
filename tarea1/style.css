@@ -79,9 +79,11 @@ h2 {
 .matrix-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin: 25px 0 10px 0;
 }
-
 
 button {
     background-color: var(--primary-pink);
@@ -108,7 +110,7 @@ button:hover {
     justify-content: center;
     gap: 30px;
     margin-bottom: 40px;
-    align-items: flex-start;
+    align-items: stretch;
 }
 
 .matrix {
@@ -153,17 +155,25 @@ button:hover {
     transform: scale(1.05);
 }
 
-
 .operations {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 12px;
-    min-width: 180px;
-    padding: 15px;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    margin: 30px 0 20px 0;
+    background: var(--background-pink);
+    border-radius: 12px;
+    padding: 18px 10px;
+    box-shadow: 0 3px 10px rgba(255, 102, 178, 0.08);
 }
 
+.operations-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
 
 .scalar-input {
     margin-top: 20px;
@@ -193,7 +203,6 @@ button:hover {
     color: var(--text-dark);
     background-color: white;
 }
-
 
 .result-container {
     background-color: var(--background-pink);
