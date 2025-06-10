@@ -1,5 +1,6 @@
 Calculadora de Matrices
- ✨ Características principales
+ 
+ Características principales
 
 - Matrices de cualquier tamaño: Puedes elegir entre 2 y 10 filas y columnas (no solo cuadradas).
 - Edición fácil: Llena las matrices a mano, con números aleatorios o límpialas con un clic.
