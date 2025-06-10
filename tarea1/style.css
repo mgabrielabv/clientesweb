@@ -250,7 +250,6 @@ button:hover {
     margin-top: 15px;
 }
 
-/* Ajustes para matrices grandes (5x5 hasta 10x10) */
 .matrix-grid[style*="5fr"] input,
 .matrix[style*="5fr"] .result-cell {
     width: 60px;

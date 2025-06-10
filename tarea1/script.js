@@ -90,13 +90,65 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function displayResult(matrix, text = '') {
+    function displayResult(matrix, text = '', originalMatrix = null, originalTitle = '') {
         resultMatrix.innerHTML = '';
         if (resultText) resultText.innerHTML = text || '';
         if (errorText) errorText.textContent = '';
 
+        // Si hay dos matrices, muéstralas lado a lado
+        if (originalMatrix) {
+            // Contenedor para ambas matrices
+            const container = document.createElement('div');
+            container.style.display = 'flex';
+            container.style.justifyContent = 'center';
+            container.style.gap = '40px';
+
+            // Función para crear una tabla visual de matriz
+            function createMatrixTable(mat, title) {
+                const wrapper = document.createElement('div');
+                wrapper.style.display = 'flex';
+                wrapper.style.flexDirection = 'column';
+                wrapper.style.alignItems = 'center';
+
+                if (title) {
+                    const t = document.createElement('div');
+                    t.innerHTML = `<strong>${title}</strong>`;
+                    t.style.marginBottom = '8px';
+                    t.style.textAlign = 'center';
+                    wrapper.appendChild(t);
+                }
+
+                const rows = mat.length;
+                const cols = mat[0].length;
+                const grid = document.createElement('div');
+                grid.className = 'matrix-grid';
+                grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+
+                for (let i = 0; i < rows; i++) {
+                    for (let j = 0; j < cols; j++) {
+                        const cell = document.createElement('div');
+                        cell.className = 'result-cell';
+                        const value = mat[i][j];
+                        cell.textContent = Number.isInteger(value) ? value : value.toFixed(3);
+                        grid.appendChild(cell);
+                    }
+                }
+                wrapper.appendChild(grid);
+                return wrapper;
+            }
+
+            container.appendChild(createMatrixTable(originalMatrix, originalTitle));
+            container.appendChild(createMatrixTable(matrix, text));
+            resultMatrix.appendChild(container);
+            return;
+        }
+
+
         if (typeof matrix === 'number') {
-            if (Number.isInteger(matrix)) {
+
+            if (text && text.toLowerCase().includes('det')) {
+                resultText.innerHTML = `${text} ${matrix.toFixed(4)}`;
+            } else if (Number.isInteger(matrix)) {
                 resultText.innerHTML = `${text} ${matrix}`;
             } else {
                 resultText.innerHTML = `${text} ${matrix.toFixed(3)}`;
@@ -113,7 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const cell = document.createElement('div');
                 cell.className = 'result-cell';
                 const value = matrix[i][j];
-                // Muestra enteros sin decimales, decimales con hasta 3 cifras
                 cell.textContent = Number.isInteger(value) ? value : value.toFixed(3);
                 resultMatrix.appendChild(cell);
             }
@@ -133,9 +184,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function clearMatrix(prefix) {
-        const size = currentSize;
-        for (let i = 0; i < size; i++) {
-            for (let j = 0; j < size; j++) {
+        for (let i = 0; i < currentRows; i++) {
+            for (let j = 0; j < currentCols; j++) {
                 document.getElementById(`${prefix}_${i}_${j}`).value = '';
             }
         }
@@ -346,30 +396,52 @@ document.addEventListener('DOMContentLoaded', function() {
                     text = `${scalarValueInput.value || 1} × B =`;
                     break;
                 case 'transposeA':
-                    result = transpose(getMatrix('A'));
-                    text = 'A<sup>T</sup> =';
-                    break;
+                    const originalA = getMatrix('A');
+                    result = transpose(originalA);
+                    text = 'A<sup>T</sup>';
+                    displayResult(result, 'Transpuesta', originalA, 'Original');
+                    return;
                 case 'transposeB':
-                    result = transpose(getMatrix('B'));
-                    text = 'B<sup>T</sup> =';
-                    break;
+                    const originalB = getMatrix('B');
+                    result = transpose(originalB);
+                    text = 'B<sup>T</sup>';
+                    displayResult(result, 'Transpuesta', originalB, 'Original');
+                    return;
                 case 'determinantA':
-                    result = determinant(getMatrix('A'));
+                    result = parseFloat(determinant(getMatrix('A')).toFixed(4));
                     text = 'det(A) =';
                     break;
                 case 'determinantB':
-                    result = determinant(getMatrix('B'));
+                    result = parseFloat(determinant(getMatrix('B')).toFixed(4));
                     text = 'det(B) =';
                     break;
                 case 'inverseA':
-                    result = inverse(getMatrix('A'));
+                    const aInv = getMatrix('A');
+                    if (aInv.length !== aInv[0].length) {
+                        displayError('La matriz debe ser cuadrada para calcular la inversa.');
+                        return;
+                    }
+                    if (determinant(aInv) === 0) {
+                        displayError('La matriz no es invertible (determinante = 0).');
+                        return;
+                    }
+                    result = inverse(aInv);
                     text = 'A<sup>-1</sup> =';
                     break;
                 case 'inverseB':
-                    result = inverse(getMatrix('B'));
+                    const bInv = getMatrix('B');
+                    if (bInv.length !== bInv[0].length) {
+                        displayError('La matriz debe ser cuadrada para calcular la inversa.');
+                        return;
+                    }
+                    if (determinant(bInv) === 0) {
+                        displayError('La matriz no es invertible (determinante = 0).');
+                        return;
+                    }
+                    result = inverse(bInv);
                     text = 'B<sup>-1</sup> =';
                     break;
-                case 'identity':
+                                    case 'identity':
                     result = identityMatrix(currentRows, currentCols);
                     text = `Matriz identidad ${currentRows}×${currentCols} =`;
                     break;
@@ -384,11 +456,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 default:
                     throw new Error('Operación no reconocida');
             }
-            
             displayResult(result, text);
-        } catch (error) {
-            displayError(error.message);
+        } catch (err) {
+            displayError(err.message);
         }
     }
-    
 });
