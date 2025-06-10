@@ -2,21 +2,18 @@ Calculadora de Matrices
  
  Características principales
 
-- Matrices de cualquier tamaño: Puedes elegir entre 2 y 10 filas y columnas (no solo cuadradas).
+- Matrices de cualquier tamaño: Puedes elegir entre 2 y 10 filas y columnas.
 - Edición fácil: Llena las matrices a mano, con números aleatorios o límpialas con un clic.
 - Escalar personalizado: Elige el valor de k para multiplicar cualquier matriz por un escalar.
 - Operaciones disponibles:
   - Suma y resta de matrices
   - Multiplicación de matrices
   - Multiplicación escalar (k × A, k × B)
-  - Transposición (A<sup>T</sup>, B<sup>T</sup>)
-  - Determinante (solo para matrices cuadradas)
-  - Inversa (solo para matrices cuadradas e invertibles)
-  - Matriz identidad (del tamaño que elijas)
-- Resultados claros: Los resultados aparecen en formato de tabla, con números redondeados a 3 decimales si hace falta.
-- Mensajes de error: Si intentas una operación no válida (por ejemplo, sumar matrices de distinto tamaño), verás un mensaje claro en rojo.
-- Diseño moderno: Interfaz colorida, botones grandes y todo centrado para que sea cómodo de usar.
-
+  - Transposición 
+  - Determinante 
+  - Inversa 
+  - Matriz identidad 
+- Resultados claros: Los resultados aparecen en formato de tabla
 ---
 
  ¿Cómo se usa?
